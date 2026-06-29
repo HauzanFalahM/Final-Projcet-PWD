@@ -30,10 +30,10 @@
 
         <!-- Menu Links (Desktop) -->
         <div class="hidden lg:flex lg:gap-x-12">
-            <a href="#" class="text-sm/6 font-semibold text-black">Kategori</a>
+            <a href="{{ route('kategori') }}" class="text-sm/6 font-semibold text-black">Kategori</a>
             <a href="{{ route('produk') }}" class="text-sm/6 font-semibold text-black">Produk</a>
-            <a href="#" class="text-sm/6 font-semibold text-black">Blog</a>
-            <a href="#" class="text-sm/6 font-semibold text-black">Tentang Kami</a>
+            <a href="{{ route('blog') }}" class="text-sm/6 font-semibold text-black">Blog</a>
+            <a href="{{ route('tentang-kami') }}" class="text-sm/6 font-semibold text-black">Tentang Kami</a>
         </div>
 
         <!-- Auth Links (Desktop) -->
@@ -60,15 +60,14 @@
 
             <!-- Links -->
             <div class="mt-10 space-y-6">
-                <a href="#" class="block text-xl font-semibold">Kategori</a>
-                <a href="#" class="block text-xl font-semibold">Produk</a>
-                <a href="#" class="block text-xl font-semibold">Blog</a>
-                <a href="#" class="block text-xl font-semibold">Tentang Kami</a>
+                <a href="{{ route('kategori') }}" class="text-sm/6 font-semibold text-black">Kategori</a>
+                <a href="{{ route('produk') }}" class="text-sm/6 font-semibold text-black">Produk</a>
+                <a href="{{ route('blog') }}" class="text-sm/6 font-semibold text-black">Blog</a>
+                <a href="{{ route('tentang-kami') }}" class="text-sm/6 font-semibold text-black">Tentang Kami</a>
                 <hr>
                 <a href="{{ route('login') }}" class="block text-xl font-semibold">Login</a>
                 <a href="{{ route('register') }}" class="block text-xl font-semibold">Sign Up</a>
             </div>
-
         </div>
     </div>
 </header>
@@ -510,12 +509,13 @@
     </div>
 </section>
 
-<!-- Section Artikel Terbaru -->
+<!-- ================= Artikel Terbaru ================= -->
 <section class="bg-gray-50 py-14">
     <div class="max-w-7xl mx-auto px-6 lg:px-8">
 
         <!-- Header -->
         <div class="mb-12 flex items-end justify-between">
+
             <div>
                 <span class="text-sm font-semibold text-[#3B5D50] uppercase tracking-widest">
                     Blog & Edukasi
@@ -531,153 +531,92 @@
                 </p>
             </div>
 
-            <a href="#"
+            <a href="{{ route('blog') }}"
                 class="hidden md:inline-flex items-center gap-2 text-base font-semibold text-[#3B5D50] hover:underline">
+
                 Lihat semua artikel
 
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg class="w-5 h-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24">
                     <path stroke-linecap="round"
                         stroke-linejoin="round"
                         stroke-width="2"
-                        d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                        d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
+
             </a>
+
         </div>
+
+        @php
+            $blogs = config('blog');
+        @endphp
 
         <!-- Grid Artikel -->
         <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
 
-            <!-- Artikel 1 -->
+            @foreach(array_slice($blogs, 0, 3) as $blog)
+
             <article class="group bg-white rounded-3xl overflow-hidden border border-gray-200 hover:border-[#3B5D50] hover:shadow-xl transition-all duration-300">
 
+                <!-- Gambar -->
                 <div class="overflow-hidden">
-                    <img src="{{ asset('images/artikel/artikel1.jpg') }}"
-                        alt="Artikel"
+
+                    <img
+                        src="{{ asset('images/artikel/' . $blog['gambar']) }}"
+                        alt="{{ $blog['judul'] }}"
                         class="w-full h-56 object-cover group-hover:scale-105 transition duration-500">
+
                 </div>
 
+                <!-- Content -->
                 <div class="p-6">
 
                     <div class="flex items-center justify-between mb-4">
-                        <span class="bg-green-100 text-[#3B5D50] text-xs px-3 py-1 rounded-full">
-                            Digital Marketing
+
+                        <span class="{{ $blog['warna'] }} text-xs px-3 py-1 rounded-full">
+                            {{ $blog['kategori'] }}
                         </span>
 
                         <span class="text-sm text-gray-400">
-                            18 Juni 2026
+                            {{ $blog['tanggal'] }}
                         </span>
+
                     </div>
 
                     <h3 class="text-xl font-bold text-gray-900 group-hover:text-[#3B5D50] transition">
-                        Cara Meningkatkan Penjualan UMKM Melalui Media Sosial
+                        {{ $blog['judul'] }}
                     </h3>
 
                     <p class="mt-4 text-gray-500 leading-relaxed">
-                        Pelajari strategi sederhana agar produk UMKM semakin dikenal dan
-                        mampu meningkatkan penjualan melalui platform digital.
+                        {{ $blog['deskripsi'] }}
                     </p>
 
-                    <a href="#" class="inline-flex items-center gap-2 mt-6 text-[#3B5D50] font-semibold hover:gap-3 transition-all">
+                    <a href="{{ $blog['link'] }}"
+                        target="_blank"
+                        class="inline-flex items-center gap-2 mt-6 text-[#3B5D50] font-semibold hover:gap-3 transition-all">
+
                         Baca Selengkapnya
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+
+                        <svg class="w-4 h-4"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24">
                             <path stroke-linecap="round"
                                 stroke-linejoin="round"
                                 stroke-width="2"
-                                d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                                d="M17 8l4 4m0 0l-4 4m4-4H3" />
                         </svg>
+
                     </a>
 
                 </div>
 
             </article>
 
-            <!-- Artikel 2 -->
-            <article class="group bg-white rounded-3xl overflow-hidden border border-gray-200 hover:border-[#3B5D50] hover:shadow-xl transition-all duration-300">
-
-                <div class="overflow-hidden">
-                    <img src="{{ asset('images/artikel/artikel2.jpg') }}"
-                        alt="Artikel"
-                        class="w-full h-56 object-cover group-hover:scale-105 transition duration-500">
-                </div>
-
-                <div class="p-6">
-
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="bg-blue-100 text-blue-700 text-xs px-3 py-1 rounded-full">
-                            Branding
-                        </span>
-
-                        <span class="text-sm text-gray-400">
-                            15 Juni 2026
-                        </span>
-                    </div>
-
-                    <h3 class="text-xl font-bold text-gray-900 group-hover:text-[#3B5D50] transition">
-                        Pentingnya Branding agar Produk UMKM Lebih Dikenal
-                    </h3>
-
-                    <p class="mt-4 text-gray-500 leading-relaxed">
-                        Bangun identitas merek yang kuat sehingga pelanggan lebih mudah
-                        mengenali dan mempercayai produk Anda.
-                    </p>
-
-                    <a href="#" class="inline-flex items-center gap-2 mt-6 text-[#3B5D50] font-semibold hover:gap-3 transition-all">
-                        Baca Selengkapnya
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                        </svg>
-                    </a>
-
-                </div>
-
-            </article>
-
-            <!-- Artikel 3 -->
-            <article class="group bg-white rounded-3xl overflow-hidden border border-gray-200 hover:border-[#3B5D50] hover:shadow-xl transition-all duration-300">
-
-                <div class="overflow-hidden">
-                    <img src="{{ asset('images/artikel/artikel3.jpg') }}"
-                        alt="Artikel"
-                        class="w-full h-56 object-cover group-hover:scale-105 transition duration-500">
-                </div>
-
-                <div class="p-6">
-
-                    <div class="flex items-center justify-between mb-4">
-                        <span class="bg-orange-100 text-orange-700 text-xs px-3 py-1 rounded-full">
-                            Tips Bisnis
-                        </span>
-
-                        <span class="text-sm text-gray-400">
-                            10 Juni 2026
-                        </span>
-                    </div>
-
-                    <h3 class="text-xl font-bold text-gray-900 group-hover:text-[#3B5D50] transition">
-                        5 Tips Foto Produk agar Lebih Menarik di Marketplace
-                    </h3>
-
-                    <p class="mt-4 text-gray-500 leading-relaxed">
-                        Foto produk yang menarik dapat meningkatkan kepercayaan pelanggan
-                        sekaligus memperbesar peluang penjualan.
-                    </p>
-
-                    <a href="#" class="inline-flex items-center gap-2 mt-6 text-[#3B5D50] font-semibold hover:gap-3 transition-all">
-                        Baca Selengkapnya
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round"
-                                stroke-linejoin="round"
-                                stroke-width="2"
-                                d="M17 8l4 4m0 0l-4 4m4-4H3"/>
-                        </svg>
-                    </a>
-
-                </div>
-
-            </article>
+            @endforeach
 
         </div>
 
