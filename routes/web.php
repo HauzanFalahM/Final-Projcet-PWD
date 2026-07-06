@@ -4,20 +4,30 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('index');
-})->name('home');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+    $produkUnggulan = collect(config('produk'))->take(4);
+
+    return view('index', compact('produkUnggulan'));
+
+})->name('index');
 
 Route::get('/produk', function () {
-    return view('produk');
+
+    $produk = config('produk');
+
+    return view('produk', compact('produk'));
+
 })->name('produk');
 
-Route::get('/kategori', function () {
-    return view('kategori');
-})->name('kategori');
+Route::get('/produk/{id}', function ($id) {
+
+    $produk = collect(config('produk'))->firstWhere('id', (int)$id);
+
+    abort_if(!$produk, 404);
+
+    return view('detail-produk', compact('produk'));
+
+})->name('produk.detail');
 
 Route::get('/blog', function () {
     return view('blog');
@@ -26,6 +36,10 @@ Route::get('/blog', function () {
 Route::get('/tentang-kami', function () {
     return view('tentang-kami');
 })->name('tentang-kami');
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

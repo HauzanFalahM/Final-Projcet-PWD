@@ -13,7 +13,7 @@
 
         <!-- Logo -->
         <div class="flex lg:flex-1">
-            <a href="{{ route('home') }}" class="-m-1.5 p-1.5">
+            <a href="{{ route('index') }}" class="-m-1.5 p-1.5">
                 <span class="sr-only">Creative Hub</span>
                 <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500" alt="" class="h-8 w-auto">
             </a>
@@ -30,7 +30,7 @@
 
         <!-- Menu Links (Desktop) -->
         <div class="hidden lg:flex lg:gap-x-12">
-            <a href="{{ route('kategori') }}" class="text-sm/6 font-semibold text-black">Kategori</a>
+            <a href="{{ route('index') }}" class="text-sm/6 font-semibold text-black">Home</a>
             <a href="{{ route('produk') }}" class="text-sm/6 font-semibold text-black">Produk</a>
             <a href="{{ route('blog') }}" class="text-sm/6 font-semibold text-black">Blog</a>
             <a href="{{ route('tentang-kami') }}" class="text-sm/6 font-semibold text-black">Tentang Kami</a>
@@ -60,7 +60,7 @@
 
             <!-- Links -->
             <div class="mt-10 space-y-6">
-                <a href="#" class="block text-xl font-semibold">Kategori</a>
+                <a href="#" class="block text-xl font-semibold">Home</a>
                 <a href="#" class="block text-xl font-semibold">Produk</a>
                 <a href="#" class="block text-xl font-semibold">Blog</a>
                 <a href="#" class="block text-xl font-semibold">Tentang Kami</a>

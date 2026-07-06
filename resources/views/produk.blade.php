@@ -15,7 +15,7 @@
 
             <!-- Logo -->
             <div class="flex lg:flex-1">
-                <a href="{{ route('home') }}" class="-m-1.5 p-1.5">
+                <a href="{{ route('index') }}" class="-m-1.5 p-1.5">
                     <span class="sr-only">Creative Hub</span>
                     <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
                         alt="" class="h-8 w-auto">
@@ -34,7 +34,7 @@
 
             <!-- Menu Links (Desktop) -->
             <div class="hidden lg:flex lg:gap-x-12">
-                <a href="{{ route('kategori') }}" class="text-sm/6 font-semibold text-black">Kategori</a>
+                <a href="{{ route('index') }}" class="text-sm/6 font-semibold text-black">Home</a>
                 <a href="{{ route('produk') }}" class="text-sm/6 font-semibold text-black">Produk</a>
                 <a href="{{ route('blog') }}" class="text-sm/6 font-semibold text-black">Blog</a>
                 <a href="{{ route('tentang-kami') }}" class="text-sm/6 font-semibold text-black">Tentang Kami</a>
@@ -66,7 +66,7 @@
 
                 <!-- Links -->
                 <div class="mt-10 space-y-6">
-                    <a href="#" class="block text-xl font-semibold">Kategori</a>
+                    <a href="#" class="block text-xl font-semibold">Home</a>
                     <a href="#" class="block text-xl font-semibold">Produk</a>
                     <a href="#" class="block text-xl font-semibold">Blog</a>
                     <a href="#" class="block text-xl font-semibold">Tentang Kami</a>
@@ -195,29 +195,41 @@
                     <div class="grid sm:grid-cols-2 xl:grid-cols-3 gap-8">
 
                         <!-- CARD -->
-                        @for ($i = 1; $i <= 9; $i++)
+                        @foreach (config('produk') as $produk)
                             <div
-                                class="group bg-white rounded-3xl overflow-hidden border border-gray-200 hover:border-[#3B5D50] hover:shadow-xl transition">
+                                class="group bg-white rounded-3xl overflow-hidden border border-gray-200 hover:border-[#3B5D50] hover:shadow-xl transition duration-300">
 
                                 <div class="overflow-hidden">
 
-                                    <img src="{{ asset('images/produk/sule.jpg') }}"
+                                    <img src="{{ asset('images/produk/' . $produk['gambar']) }}"
+                                        alt="{{ $produk['nama'] }}"
                                         class="w-full h-56 object-cover group-hover:scale-105 transition duration-500">
 
                                 </div>
 
                                 <div class="p-6">
 
-                                    <span class="text-xs bg-green-100 text-[#3B5D50] px-3 py-1 rounded-full">
-                                        Kerajinan
+                                    <span
+                                        class="text-xs {{ $produk['kategori'] == 'Fashion'
+                                            ? 'bg-pink-100 text-pink-700'
+                                            : ($produk['kategori'] == 'Makanan'
+                                                ? 'bg-orange-100 text-orange-700'
+                                                : ($produk['kategori'] == 'Minuman'
+                                                    ? 'bg-blue-100 text-blue-700'
+                                                    : ($produk['kategori'] == 'Dekorasi'
+                                                        ? 'bg-purple-100 text-purple-700'
+                                                        : 'bg-green-100 text-green-700'))) }} px-3 py-1 rounded-full">
+
+                                        {{ $produk['kategori'] }}
+
                                     </span>
 
-                                    <h3 class="mt-4 text-xl font-bold">
-                                        Tas Anyaman Rotan
+                                    <h3 class="mt-4 text-xl font-bold text-gray-900">
+                                        {{ $produk['nama'] }}
                                     </h3>
 
-                                    <p class="mt-2 text-gray-500 text-sm">
-                                        Produk handmade berkualitas tinggi dari UMKM lokal.
+                                    <p class="mt-2 text-gray-500 text-sm leading-relaxed">
+                                        {{ $produk['deskripsi'] }}
                                     </p>
 
                                     <div class="mt-6 flex justify-between items-center">
@@ -229,15 +241,15 @@
                                             </p>
 
                                             <p class="text-xl font-bold text-[#3B5D50]">
-                                                Rp125.000
+                                                {{ $produk['harga'] }}
                                             </p>
 
                                         </div>
 
-                                        <a href="#"
-                                            class="bg-[#3B5D50] text-white px-4 py-2 rounded-xl hover:bg-[#2d4c41] transition">
+                                        <a href="{{ route('produk.detail', $produk['id']) }}"
+                                            class="bg-[#3B5D50] text-white px-5 py-2 rounded-xl hover:bg-[#2d4c41] transition">
 
-                                            Detail
+                                            Lihat Detail
 
                                         </a>
 
@@ -246,8 +258,7 @@
                                 </div>
 
                             </div>
-                        @endfor
-
+                        @endforeach
                     </div>
 
                     <!-- Pagination -->

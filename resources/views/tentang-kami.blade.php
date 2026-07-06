@@ -16,7 +16,7 @@
 
             <!-- Logo -->
             <div class="flex lg:flex-1">
-                <a href="{{ route('home') }}" class="-m-1.5 p-1.5">
+                <a href="{{ route('index') }}" class="-m-1.5 p-1.5">
                     <span class="sr-only">Creative Hub</span>
                     <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
                         alt="" class="h-8 w-auto">
@@ -35,7 +35,7 @@
 
             <!-- Menu Links (Desktop) -->
             <div class="hidden lg:flex lg:gap-x-12">
-                <a href="{{ route('kategori') }}" class="text-sm/6 font-semibold text-black">Kategori</a>
+                <a href="{{ route('index') }}" class="text-sm/6 font-semibold text-black">Home</a>
                 <a href="{{ route('produk') }}" class="text-sm/6 font-semibold text-black">Produk</a>
                 <a href="{{ route('blog') }}" class="text-sm/6 font-semibold text-black">Blog</a>
                 <a href="{{ route('tentang-kami') }}" class="text-sm/6 font-semibold text-black">Tentang Kami</a>
@@ -65,7 +65,7 @@
                 </div>
 
                 <div class="mt-10 space-y-6">
-                    <a href="{{ route('kategori') }}" class="block text-xl font-semibold">Kategori</a>
+                    <a href="{{ route('home') }}" class="block text-xl font-semibold">Home</a>
                     <a href="{{ route('produk') }}" class="block text-xl font-semibold">Produk</a>
                     <a href="{{ route('blog') }}" class="block text-xl font-semibold">Blog</a>
                     <a href="{{ route('tentang-kami') }}" class="block text-xl font-semibold">Tentang Kami</a>
@@ -223,36 +223,6 @@
                     <p class="mt-4 text-gray-500 text-sm leading-relaxed">
                         Pelanggan dapat langsung menghubungi penjual dengan cepat dan mudah.
                     </p>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Statistik -->
-    <section class="bg-[#3B5D50] py-14">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
-
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 text-center text-white">
-
-                <div>
-                    <h2 class="text-5xl font-bold">500+</h2>
-                    <p class="mt-3 text-green-200">UMKM</p>
-                </div>
-
-                <div>
-                    <h2 class="text-5xl font-bold">1000+</h2>
-                    <p class="mt-3 text-green-200">Produk</p>
-                </div>
-
-                <div>
-                    <h2 class="text-5xl font-bold">50+</h2>
-                    <p class="mt-3 text-green-200">Kota</p>
-                </div>
-
-                <div>
-                    <h2 class="text-5xl font-bold">10K+</h2>
-                    <p class="mt-3 text-green-200">Pengunjung</p>
                 </div>
 
             </div>
