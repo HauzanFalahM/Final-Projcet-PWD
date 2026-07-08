@@ -65,7 +65,7 @@
                 </div>
 
                 <div class="mt-10 space-y-6">
-                    <a href="{{ route('home') }}" class="block text-xl font-semibold">Home</a>
+                    <a href="{{ route('index') }}" class="block text-xl font-semibold">Home</a>
                     <a href="{{ route('produk') }}" class="block text-xl font-semibold">Produk</a>
                     <a href="{{ route('blog') }}" class="block text-xl font-semibold">Blog</a>
                     <a href="{{ route('tentang-kami') }}" class="block text-xl font-semibold">Tentang Kami</a>
@@ -78,174 +78,402 @@
         </div>
     </header>
 
-    <!-- Hero -->
-    <section class="bg-white border-b">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8 py-14">
+    <!-- ================= HERO ================= -->
+    <section class="relative h-[650px] overflow-hidden">
 
-            <p class="text-sm text-gray-500">Beranda / Tentang Kami</p>
+        <!-- Background Image -->
+        <img src="{{ asset('images/about/about-us.jpg') }}" alt="Creative Hub"
+            class="absolute inset-0 w-full h-full object-cover">
 
-            <div class="grid lg:grid-cols-2 gap-16 items-center mt-8">
+        <!-- Bottom Wave -->
+        <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
 
-                <div>
-                    <span class="text-[#3B5D50] font-semibold uppercase tracking-widest text-sm">
-                        Tentang Creative Hub
-                    </span>
+            <svg class="relative block w-full h-20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120"
+                preserveAspectRatio="none">
 
-                    <h1 class="mt-4 text-5xl font-bold text-gray-900 leading-tight">
-                        Membantu UMKM Indonesia Berkembang di Era Digital
-                    </h1>
+                <path fill="#ffffff"
+                    d="M0,96L80,90.7C160,85,320,75,480,69.3C640,64,800,64,960,74.7C1120,85,1280,107,1360,117.3L1440,128L1440,160L1360,160C1280,160,1120,160,960,160C800,160,640,160,480,160C320,160,160,160,80,160L0,160Z">
+                </path>
 
-                    <p class="mt-6 text-lg text-gray-600 leading-relaxed">
-                        Creative Hub merupakan platform katalog UMKM yang dirancang
-                        untuk membantu pelaku usaha mempromosikan produknya,
-                        memperluas jangkauan pasar, serta memberikan edukasi
-                        bisnis melalui artikel dan informasi yang bermanfaat.
-                    </p>
+            </svg>
 
-                    <a href="{{ route('produk') }}"
-                        class="inline-block mt-8 bg-[#3B5D50] text-white px-8 py-4 rounded-2xl hover:bg-[#2d4c41] transition">
-                        Jelajahi Produk
-                    </a>
-                </div>
-
-                <div>
-                    <img src="{{ asset('images/about/about-us.jpg') }}"
-                        class="rounded-3xl shadow-xl w-full h-[450px] object-cover">
-                </div>
-
-            </div>
         </div>
+
     </section>
 
-    <!-- Apa itu Creative Hub -->
-    <section class="bg-gray-50 py-14">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <!-- ================= SIAPA KAMI ================= -->
+    <section id="tentang" class="bg-white py-24">
 
-            <div class="grid lg:grid-cols-2 gap-16 items-center">
-
-                <div>
-                    <img src="{{ asset('images/about/umkm.jpg') }}" class="rounded-3xl shadow-lg w-full">
-                </div>
-
-                <div>
-                    <h2 class="text-4xl font-bold text-gray-900">Apa itu Creative Hub?</h2>
-
-                    <p class="mt-6 text-gray-600 leading-8">
-                        Creative Hub adalah platform yang menghubungkan pelaku UMKM
-                        dengan masyarakat melalui katalog produk digital.
-                        Website ini dibuat agar produk-produk lokal dapat lebih mudah
-                        ditemukan oleh pelanggan dari berbagai daerah.
-                    </p>
-
-                    <p class="mt-5 text-gray-600 leading-8">
-                        Selain menyediakan katalog produk, Creative Hub juga menghadirkan
-                        artikel edukasi, tips pemasaran, dan informasi yang dapat membantu
-                        UMKM meningkatkan kualitas bisnisnya.
-                    </p>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- Visi & Misi -->
-    <section class="bg-white py-14">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        <div class="max-w-5xl mx-auto px-6">
 
             <div class="text-center">
-                <h2 class="text-4xl font-bold text-gray-900">Visi & Misi</h2>
-                <p class="mt-4 text-gray-500">
-                    Membangun ekosistem digital yang mendukung perkembangan UMKM Indonesia.
+                <h2 class="mt-6 text-5xl font-bold text-gray-900">
+                    Siapa Kami?
+                </h2>
+
+                <div class="w-24 h-1 bg-[#3B5D50] rounded-full mx-auto mt-6"></div>
+
+            </div>
+
+            <div class="mt-14 space-y-8">
+
+                <p class="text-lg leading-9 text-gray-600 text-justify">
+
+                    Creative Hub merupakan platform katalog digital yang dirancang
+                    untuk membantu pelaku Usaha Mikro, Kecil, dan Menengah (UMKM)
+                    dalam memperkenalkan produk mereka kepada masyarakat secara
+                    lebih luas. Melalui website ini, pengunjung dapat menemukan
+                    berbagai produk lokal berkualitas dari berbagai daerah di
+                    Indonesia dengan tampilan yang modern, informatif, dan mudah
+                    digunakan.
+
                 </p>
+
+                <p class="text-lg leading-9 text-gray-600 text-justify">
+
+                    Tidak hanya menjadi media promosi produk, Creative Hub juga
+                    menyediakan berbagai artikel edukatif mengenai pemasaran
+                    digital, branding, serta pengembangan usaha yang dapat
+                    membantu pelaku UMKM meningkatkan daya saing di era digital.
+                    Dengan demikian, platform ini menjadi wadah yang tidak hanya
+                    mempertemukan penjual dan calon pembeli, tetapi juga menjadi
+                    sumber informasi yang bermanfaat bagi pelaku usaha.
+
+                </p>
+
+                <p class="text-lg leading-9 text-gray-600 text-justify">
+
+                    Kami percaya bahwa setiap produk lokal memiliki potensi untuk
+                    berkembang dan dikenal oleh masyarakat luas. Oleh karena itu,
+                    Creative Hub hadir untuk mendukung transformasi digital UMKM
+                    Indonesia melalui teknologi yang sederhana, mudah diakses,
+                    serta mampu menjangkau lebih banyak pelanggan.
+
+                </p>
+
             </div>
 
-            <div class="grid lg:grid-cols-2 gap-8 mt-12">
-
-                <div class="bg-[#3B5D50] text-white rounded-3xl p-10">
-                    <h3 class="text-2xl font-bold mb-5">Visi</h3>
-                    <p class="leading-8">
-                        Menjadi platform digital terpercaya yang membantu UMKM Indonesia
-                        meningkatkan daya saing melalui promosi produk dan edukasi bisnis.
-                    </p>
-                </div>
-
-                <div class="bg-white border border-gray-200 rounded-3xl p-10">
-                    <h3 class="text-2xl font-bold text-gray-900 mb-5">Misi</h3>
-                    <ul class="space-y-4 text-gray-600">
-                        <li>✓ Menyediakan katalog produk UMKM.</li>
-                        <li>✓ Mempermudah promosi produk lokal.</li>
-                        <li>✓ Memberikan edukasi bisnis.</li>
-                        <li>✓ Mendukung transformasi digital UMKM.</li>
-                    </ul>
-                </div>
-
-            </div>
         </div>
+
     </section>
 
-    <!-- Mengapa Memilih Creative Hub -->
-    <section class="bg-gray-50 py-14">
-        <div class="max-w-7xl mx-auto px-6 lg:px-8">
+    <!-- ================= APA YANG KAMI TAWARKAN ================= -->
 
-            <div class="text-center">
-                <h2 class="text-4xl font-bold text-gray-900">Mengapa Memilih Creative Hub?</h2>
-            </div>
+    <section class="bg-gray-50 py-8">
 
-            <div class="grid md:grid-cols-2 xl:grid-cols-4 gap-8 mt-12">
+        <div class="max-w-7xl mx-auto px-6">
 
-                <div class="bg-white rounded-3xl p-8 shadow hover:shadow-xl transition">
-                    <div class="text-5xl">📦</div>
-                    <h3 class="mt-6 text-xl font-bold text-gray-900">Katalog Lengkap</h3>
-                    <p class="mt-4 text-gray-500 text-sm leading-relaxed">
-                        Ribuan produk UMKM dari berbagai kategori tersedia dalam satu platform.
-                    </p>
-                </div>
+            <!-- Judul -->
 
-                <div class="bg-white rounded-3xl p-8 shadow hover:shadow-xl transition">
-                    <div class="text-5xl">📖</div>
-                    <h3 class="mt-6 text-xl font-bold text-gray-900">Edukasi Bisnis</h3>
-                    <p class="mt-4 text-gray-500 text-sm leading-relaxed">
-                        Pelajari strategi marketing, branding, dan pengembangan bisnis dari para ahli.
-                    </p>
-                </div>
+            <div class="text-center mb-10">
+                <h2 class="mt-5 text-4xl font-bold text-gray-900">
 
-                <div class="bg-white rounded-3xl p-8 shadow hover:shadow-xl transition">
-                    <div class="text-5xl">⚡</div>
-                    <h3 class="mt-6 text-xl font-bold text-gray-900">Dukungan UMKM</h3>
-                    <p class="mt-4 text-gray-500 text-sm leading-relaxed">
-                        Membantu UMKM berkembang dan menjangkau pasar yang lebih luas melalui digital.
-                    </p>
-                </div>
+                    Apa yang Kami Tawarkan?
 
-                <div class="bg-white rounded-3xl p-8 shadow hover:shadow-xl transition">
-                    <div class="text-5xl">🤝</div>
-                    <h3 class="mt-6 text-xl font-bold text-gray-900">Mudah Dihubungi</h3>
-                    <p class="mt-4 text-gray-500 text-sm leading-relaxed">
-                        Pelanggan dapat langsung menghubungi penjual dengan cepat dan mudah.
-                    </p>
-                </div>
+                </h2>
+
+                <p class="mt-5 max-w-3xl mx-auto text-gray-500 leading-8">
+
+                    Creative Hub hadir bukan hanya sebagai katalog digital,
+                    tetapi juga sebagai media yang membantu pelaku UMKM
+                    berkembang melalui teknologi dan informasi.
+
+                </p>
 
             </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+                <!-- Card 1 -->
+
+                <div
+                    class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-xl hover:-translate-y-2 transition duration-300">
+
+                    <div class="w-16 h-16 rounded-2xl bg-[#3B5D50]/10 flex items-center justify-center text-3xl">
+
+                        🛍️
+
+                    </div>
+
+                    <h3 class="mt-6 text-xl font-bold">
+
+                        Katalog Produk
+
+                    </h3>
+
+                    <p class="mt-4 text-gray-600 leading-7">
+
+                        Menampilkan berbagai produk unggulan UMKM dari
+                        berbagai daerah di Indonesia.
+
+                    </p>
+
+                </div>
+
+                <!-- Card 2 -->
+
+                <div
+                    class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-xl hover:-translate-y-2 transition duration-300">
+
+                    <div class="w-16 h-16 rounded-2xl bg-[#3B5D50]/10 flex items-center justify-center text-3xl">
+
+                        📢
+
+                    </div>
+
+                    <h3 class="mt-6 text-xl font-bold">
+
+                        Media Promosi
+
+                    </h3>
+
+                    <p class="mt-4 text-gray-600 leading-7">
+
+                        Membantu pelaku UMKM mengenalkan produknya
+                        kepada masyarakat secara lebih luas.
+
+                    </p>
+
+                </div>
+
+                <!-- Card 3 -->
+
+                <div
+                    class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-xl hover:-translate-y-2 transition duration-300">
+
+                    <div class="w-16 h-16 rounded-2xl bg-[#3B5D50]/10 flex items-center justify-center text-3xl">
+
+                        📚
+
+                    </div>
+
+                    <h3 class="mt-6 text-xl font-bold">
+
+                        Edukasi UMKM
+
+                    </h3>
+
+                    <p class="mt-4 text-gray-600 leading-7">
+
+                        Berbagai artikel mengenai pemasaran digital,
+                        branding, dan pengembangan usaha.
+
+                    </p>
+
+                </div>
+
+                <!-- Card 4 -->
+
+                <div
+                    class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-xl hover:-translate-y-2 transition duration-300">
+
+                    <div class="w-16 h-16 rounded-2xl bg-[#3B5D50]/10 flex items-center justify-center text-3xl">
+
+                        🤝
+
+                    </div>
+
+                    <h3 class="mt-6 text-xl font-bold">
+
+                        Kolaborasi
+
+                    </h3>
+
+                    <p class="mt-4 text-gray-600 leading-7">
+
+                        Menghubungkan UMKM dengan masyarakat
+                        sehingga produk lokal semakin dikenal.
+
+                    </p>
+
+                </div>
+
+            </div>
+
         </div>
+
     </section>
 
-    <!-- CTA -->
-    <section class="bg-white py-14">
-        <div class="max-w-3xl mx-auto px-6 text-center">
+    <!-- ================= VISI MISI ================= -->
 
-            <h2 class="text-5xl font-bold text-gray-900">Mari Dukung Produk Lokal Indonesia</h2>
+    <section class="bg-white py-24">
 
-            <p class="mt-6 text-gray-500 leading-relaxed">
-                Bergabunglah bersama Creative Hub dan temukan berbagai produk UMKM
-                berkualitas dari seluruh Indonesia.
-            </p>
+        <div class="max-w-7xl mx-auto px-6">
 
-            <a href="{{ route('produk') }}"
-                class="inline-block mt-8 bg-[#3B5D50] text-white px-8 py-4 rounded-2xl hover:bg-[#2d4c41] transition">
-                Jelajahi Produk
-            </a>
+            <!-- Heading -->
+
+            <div class="text-center mb-16">
+
+                <span class="inline-block bg-[#3B5D50]/10 text-[#3B5D50] px-5 py-2 rounded-full text-sm font-semibold">
+
+                    Arah dan Tujuan Kami
+
+                </span>
+
+                <h2 class="mt-5 text-5xl font-bold text-gray-900">
+
+                    Visi & Misi
+
+                </h2>
+
+                <p class="mt-5 max-w-3xl mx-auto text-gray-500 leading-8">
+
+                    Creative Hub berkomitmen menjadi platform digital yang
+                    mendukung perkembangan UMKM Indonesia melalui inovasi,
+                    kolaborasi, dan pemanfaatan teknologi.
+
+                </p>
+
+            </div>
+
+            <div class="grid lg:grid-cols-5 gap-10">
+
+                <!-- VISI -->
+
+                <div class="lg:col-span-2 bg-[#3B5D50] rounded-[32px] p-10 text-white shadow-xl">
+
+                    <div class="w-20 h-20 rounded-3xl bg-white/15 flex items-center justify-center mb-8">
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="w-10 h-10" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor">
+
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14m-6 0H5a2 2 0 01-2-2v-2a2 2 0 012-2h4l5-3v12l-5-3z" />
+
+                        </svg>
+
+                    </div>
+
+                    <h3 class="text-3xl font-bold mb-6">
+
+                        Visi
+
+                    </h3>
+
+                    <p class="leading-9 text-gray-100">
+
+                        Menjadi platform digital terpercaya yang mampu
+                        mendukung pertumbuhan UMKM Indonesia melalui
+                        promosi produk, edukasi bisnis, serta
+                        pemanfaatan teknologi digital sehingga mampu
+                        meningkatkan daya saing produk lokal.
+
+                    </p>
+
+                </div>
+
+                <!-- MISI -->
+
+                <div class="lg:col-span-3 bg-gray-50 rounded-[32px] p-10 border border-gray-200">
+
+                    <div class="flex items-center gap-4 mb-8">
+
+                        <div class="w-16 h-16 rounded-2xl bg-[#3B5D50]/10 flex items-center justify-center">
+
+                            🎯
+
+                        </div>
+
+                        <div>
+
+                            <h3 class="text-3xl font-bold text-gray-900">
+
+                                Misi
+
+                            </h3>
+
+                            <p class="text-gray-500">
+
+                                Langkah yang kami lakukan.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="space-y-6">
+
+                        <div class="flex gap-4">
+
+                            <div
+                                class="w-8 h-8 rounded-full bg-[#3B5D50] text-white flex items-center justify-center font-bold">
+
+                                ✓
+
+                            </div>
+
+                            <p class="text-gray-600 leading-8">
+
+                                Menyediakan katalog produk UMKM yang mudah diakses
+                                oleh masyarakat.
+
+                            </p>
+
+                        </div>
+
+                        <div class="flex gap-4">
+
+                            <div
+                                class="w-8 h-8 rounded-full bg-[#3B5D50] text-white flex items-center justify-center font-bold">
+
+                                ✓
+
+                            </div>
+
+                            <p class="text-gray-600 leading-8">
+
+                                Membantu promosi produk lokal melalui media digital
+                                yang modern dan informatif.
+
+                            </p>
+
+                        </div>
+
+                        <div class="flex gap-4">
+
+                            <div
+                                class="w-8 h-8 rounded-full bg-[#3B5D50] text-white flex items-center justify-center font-bold">
+
+                                ✓
+
+                            </div>
+
+                            <p class="text-gray-600 leading-8">
+
+                                Memberikan edukasi mengenai pemasaran digital,
+                                branding, dan pengembangan usaha.
+
+                            </p>
+
+                        </div>
+
+                        <div class="flex gap-4">
+
+                            <div
+                                class="w-8 h-8 rounded-full bg-[#3B5D50] text-white flex items-center justify-center font-bold">
+
+                                ✓
+
+                            </div>
+
+                            <p class="text-gray-600 leading-8">
+
+                                Mendukung transformasi digital UMKM agar mampu
+                                bersaing di tingkat nasional maupun global.
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
+
     </section>
 
     <!-- Footer -->
