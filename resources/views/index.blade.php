@@ -395,7 +395,7 @@
                                 {{ $blog['deskripsi'] }}
                             </p>
 
-                            <a href="{{ $blog['link'] }}" target="_blank"
+                            <a href="{{ route('blog.detail', $blog['id']) }}"
                                 class="inline-flex items-center gap-2 mt-6 text-[#3B5D50] font-semibold hover:gap-3 transition-all">
 
                                 Baca Selengkapnya
