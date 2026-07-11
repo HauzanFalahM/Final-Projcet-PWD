@@ -9,73 +9,33 @@
 </head>
 
 <body>
-    <!-- Navbar -->
-    <header class="sticky top-0 z-50 bg-white shadow-sm" x-data="{ open: false }">
+    <!-- Navbar (Index / Sebelum Login) -->
+    <header class="sticky top-0 z-50 bg-white shadow-sm">
         <nav class="max-w-7xl mx-auto flex items-center justify-between px-8 py-5">
 
             <!-- Logo -->
-            <div class="flex lg:flex-1">
-                <a href="#" class="-m-1.5 p-1.5">
-                    <span class="sr-only">Creative Hub</span>
-                    <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                        alt="" class="h-8 w-auto">
+            <a href="{{ route('index') }}" class="flex items-center gap-3">
+                <!-- Logo -->
+                <div class="flex lg:flex-1">
+                    <a href="{{ route('dashboard') }}" class="-m-1.5 p-1.5">
+                        <span class="sr-only">Creative Hub</span>
+                        <img src="{{ asset('images/logo/logo.jpg') }}" alt="" class="h-8 w-auto">
+                    </a>
+                </div>
+            </a>
+
+            <!-- Auth Links -->
+            <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-x-6">
+                <a href="{{ route('login') }}" class="text-sm font-medium text-[#3B5D50] hover:opacity-70 transition">
+                    Masuk
+                </a>
+                <a href="{{ route('register') }}"
+                    class="text-sm font-medium text-[#3B5D50] hover:opacity-70 transition">
+                    Daftar
                 </a>
             </div>
 
-            <!-- Hamburger (Mobile) -->
-            <div class="flex lg:hidden">
-                <button @click="open = true" class="-m-2.5 p-2.5">
-                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16" />
-                    </svg>
-                </button>
-            </div>
-
-            <!-- Menu Links (Desktop) -->
-            <div class="hidden lg:flex lg:gap-x-12">
-                <a href="{{ route('index') }}" class="text-sm/6 font-semibold text-black">Home</a>
-                <a href="{{ route('produk') }}" class="text-sm/6 font-semibold text-black">Produk</a>
-                <a href="{{ route('blog') }}" class="text-sm/6 font-semibold text-black">Blog</a>
-                <a href="{{ route('tentang-kami') }}" class="text-sm/6 font-semibold text-black">Tentang Kami</a>
-            </div>
-
-            <!-- Auth Links (Desktop) -->
-            <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-x-6">
-                <a href="{{ route('login') }}" class="text-sm/6 font-semibold text-black">Login</a>
-                <a href="{{ route('register') }}" class="text-sm/6 font-semibold text-black">Sign up</a>
-            </div>
-
         </nav>
-
-        <!-- Mobile Menu -->
-        <div x-show="open" class="fixed inset-0 z-50 bg-white lg:hidden">
-            <div class="p-6">
-
-                <!-- Header -->
-                <div class="flex justify-between items-center">
-                    <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                        class="h-8">
-                    <button @click="open = false">
-                        <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                    </button>
-                </div>
-
-                <!-- Links -->
-                <div class="mt-10 space-y-6">
-                    <a href="{{ route('index') }}" class="text-sm/6 font-semibold text-black">Home</a>
-                    <a href="{{ route('produk') }}" class="text-sm/6 font-semibold text-black">Produk</a>
-                    <a href="{{ route('blog') }}" class="text-sm/6 font-semibold text-black">Blog</a>
-                    <a href="{{ route('tentang-kami') }}" class="text-sm/6 font-semibold text-black">Tentang Kami</a>
-                    <hr>
-                    <a href="{{ route('login') }}" class="block text-xl font-semibold">Login</a>
-                    <a href="{{ route('register') }}" class="block text-xl font-semibold">Sign Up</a>
-                </div>
-            </div>
-        </div>
     </header>
 
     <!-- Hero Section -->
@@ -102,12 +62,12 @@
                     </p>
 
                     <div class="mt-10 flex items-center gap-x-6">
-                        <a href="#"
+                        <a href="{{ route('produk') }}"
                             class="rounded-lg bg-[#3B5D50] px-5 py-3 text-sm font-semibold text-white shadow hover:bg-[#2f4b40]">
                             Jelajahi Produk
                         </a>
-                        <a href="#" class="text-sm font-semibold text-gray-900">
-                            Baca Artikel →
+                        <a href="{{ route('tentang-kami') }}" class="text-sm font-semibold text-gray-900">
+                            Baca Selengkapnya →
                         </a>
                     </div>
 

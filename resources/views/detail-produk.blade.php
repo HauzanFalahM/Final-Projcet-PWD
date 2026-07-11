@@ -11,13 +11,117 @@
 
 <body class="bg-gray-100">
 
-    {{-- Navbar --}}
-    <nav class="bg-white shadow">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="{{ route('index') }}" class="text-2xl font-bold text-[#3B5D50]">
-                Creative Hub
-            </a>
-    </nav>
+    <!-- Navbar -->
+    <header class="sticky top-0 z-50 bg-white shadow-sm" x-data="{ open: false, userMenu: false }">
+        <nav class="max-w-7xl mx-auto flex items-center justify-between px-8 py-5">
+
+            <!-- Logo -->
+            <div class="flex lg:flex-1">
+                <a href="{{ route('dashboard') }}" class="-m-1.5 p-1.5">
+                    <span class="sr-only">Creative Hub</span>
+                    <img src="{{ asset('images/logo/logo.jpg') }}" alt="" class="h-8 w-auto">
+                </a>
+            </div>
+
+            <!-- Hamburger (Mobile) -->
+            <div class="flex lg:hidden">
+                <button @click="open = true" class="-m-2.5 p-2.5">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Menu Links (Desktop) -->
+            <div class="hidden lg:flex lg:gap-x-12">
+                <a href="{{ route('dashboard') }}" class="text-sm/6 font-semibold text-black">Beranda</a>
+                <a href="{{ route('produk') }}" class="text-sm/6 font-semibold text-black">Produk</a>
+                <a href="{{ route('blog') }}" class="text-sm/6 font-semibold text-black">Artikel</a>
+                <a href="{{ route('tentang-kami') }}" class="text-sm/6 font-semibold text-black">Tentang Kami</a>
+                <a href="{{ route('kolaborasi') }}" class="text-sm/6 font-semibold text-black">Kolaborasi</a>
+            </div>
+
+            <!-- Auth Area (Desktop) -->
+            <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-x-6">
+                @auth
+                    <!-- Dropdown Nama User -->
+                    <div class="relative" @click.outside="userMenu = false">
+                        <button @click="userMenu = !userMenu"
+                            class="flex items-center gap-x-1 text-sm/6 font-semibold text-black">
+                            {{ Auth::user()->name }}
+                            <svg class="h-4 w-4 transition-transform" :class="{ 'rotate-180': userMenu }" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+
+                        <div x-show="userMenu" x-transition
+                            class="absolute right-0 mt-3 w-48 rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5"
+                            style="display: none;">
+                            <a href="{{ route('profile.edit') }}"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                                Profile
+                            </a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit"
+                                    class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                                    Log Out
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                @else
+                    <a href="{{ route('login') }}" class="text-sm/6 font-semibold text-black">Login</a>
+                    <a href="{{ route('register') }}" class="text-sm/6 font-semibold text-black">Sign up</a>
+                @endauth
+            </div>
+
+        </nav>
+
+        <!-- Mobile Menu -->
+        <div x-show="open" class="fixed inset-0 z-50 bg-white lg:hidden" style="display: none;">
+            <div class="p-6">
+
+                <!-- Header -->
+                <div class="flex justify-between items-center">
+                    <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
+                        class="h-8">
+                    <button @click="open = false">
+                        <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Links -->
+                <div class="mt-10 space-y-6">
+                    <a href="{{ route('dashboard') }}" class="block text-sm/6 font-semibold text-black">Home</a>
+                    <a href="{{ route('produk') }}" class="block text-sm/6 font-semibold text-black">Produk</a>
+                    <a href="{{ route('blog') }}" class="block text-sm/6 font-semibold text-black">Blog</a>
+                    <a href="{{ route('tentang-kami') }}" class="block text-sm/6 font-semibold text-black">Tentang
+                        Kami</a>
+                    <hr>
+
+                    @auth
+                        <p class="text-sm font-semibold text-gray-500">{{ Auth::user()->name }}</p>
+                        <a href="{{ route('profile.edit') }}" class="block text-xl font-semibold">Profile</a>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="block text-xl font-semibold text-left w-full">
+                                Log Out
+                            </button>
+                        </form>
+                    @else
+                        <a href="{{ route('login') }}" class="block text-xl font-semibold">Login</a>
+                        <a href="{{ route('register') }}" class="block text-xl font-semibold">Sign Up</a>
+                    @endauth
+                </div>
+            </div>
+        </div>
+    </header>
 
     <!-- Back Button -->
     <div class="max-w-7xl mx-auto px-6 lg:px-8 pt-8">
@@ -26,7 +130,6 @@
 
             <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
                 stroke="currentColor">
-
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
 
@@ -43,37 +146,30 @@
 
                 {{-- Gambar --}}
                 <div class="p-8">
-
                     <img src="{{ asset('images/produk/' . $produk['gambar']) }}" alt="{{ $produk['nama'] }}"
                         class="w-full h-[500px] object-cover rounded-xl">
-
                 </div>
 
                 {{-- Informasi --}}
                 <div class="p-8 flex flex-col">
 
-                    <span class="inline-block bg-orange-100 text-orange-600 px-4 py-1 rounded-full text-sm w-fit mb-4">
+                    <span class="inline-block bg-green-100 text-[#3B5D50] px-4 py-1 rounded-full text-sm w-fit mb-4">
                         {{ $produk['kategori'] }}
                     </span>
 
                     <div class="flex items-start justify-between gap-4 mb-3">
-
                         <h1 class="text-4xl font-bold text-gray-800">
                             {{ $produk['nama'] }}
                         </h1>
 
                         <button
                             class="w-12 h-12 rounded-xl border border-gray-200 flex items-center justify-center hover:bg-[#3B5D50] hover:text-white hover:border-[#3B5D50] transition duration-300 group">
-
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
-                                stroke="currentColor" class="w-6 h-6">
-
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                stroke-width="2" stroke="currentColor" class="w-6 h-6">
                                 <path stroke-linecap="round" stroke-linejoin="round"
                                     d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21l-7.5-4-7.5 4V5.507c0-1.108.807-2.057 1.907-2.185A48.507 48.507 0 0 1 12 3c1.904 0 3.797.11 5.593.322z" />
                             </svg>
-
                         </button>
-
                     </div>
 
                     <h2 class="text-3xl font-bold text-[#3B5D50] mb-6">
@@ -86,41 +182,26 @@
                             <h3 class="font-semibold text-gray-700">
                                 Deskripsi Produk
                             </h3>
-
                             <p class="text-gray-600 leading-relaxed mt-2">
                                 {{ $produk['deskripsi'] }}
                             </p>
                         </div>
 
                         <div class="grid sm:grid-cols-2 gap-4">
-
                             <div class="bg-gray-50 rounded-xl p-4">
-                                <p class="text-sm text-gray-500">
-                                    UMKM
-                                </p>
-
-                                <p class="font-semibold text-gray-800">
-                                    {{ $produk['umkm'] }}
-                                </p>
+                                <p class="text-sm text-gray-500">UMKM</p>
+                                <p class="font-semibold text-gray-800">{{ $produk['umkm'] }}</p>
                             </div>
 
                             <div class="bg-gray-50 rounded-xl p-4">
-                                <p class="text-sm text-gray-500">
-                                    Lokasi
-                                </p>
-
-                                <p class="font-semibold text-gray-800">
-                                    {{ $produk['alamat'] }}
-                                </p>
+                                <p class="text-sm text-gray-500">Lokasi</p>
+                                <p class="font-semibold text-gray-800">{{ $produk['alamat'] }}</p>
                             </div>
-
                         </div>
-
                     </div>
 
                     {{-- Tombol --}}
                     <div class="mt-8 flex gap-4">
-
                         <a href="{{ route('produk') }}"
                             class="px-6 py-3 rounded-lg bg-gray-200 hover:bg-gray-300 transition">
                             Kembali
@@ -129,7 +210,6 @@
                         <button class="px-6 py-3 rounded-lg bg-[#3B5D50] hover:bg-[#2f4a40] text-white transition">
                             Hubungi Penjual
                         </button>
-
                     </div>
 
                 </div>
@@ -156,7 +236,6 @@
                         <img src="{{ asset('images/produk/' . $item['gambar']) }}" class="h-52 w-full object-cover">
 
                         <div class="p-5">
-
                             <h3 class="font-bold text-lg">
                                 {{ $item['nama'] }}
                             </h3>
@@ -169,9 +248,7 @@
                                 class="inline-block mt-4 bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg">
                                 Lihat Detail
                             </a>
-
                         </div>
-
                     </div>
                 @endif
             @endforeach

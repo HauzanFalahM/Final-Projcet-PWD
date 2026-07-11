@@ -11,15 +11,14 @@
 <body>
 
     <!-- Navbar -->
-    <header class="sticky top-0 z-50 bg-white shadow-sm" x-data="{ open: false }">
+    <header class="sticky top-0 z-50 bg-white shadow-sm" x-data="{ open: false, userMenu: false }">
         <nav class="max-w-7xl mx-auto flex items-center justify-between px-8 py-5">
 
             <!-- Logo -->
             <div class="flex lg:flex-1">
-                <a href="{{ route('index') }}" class="-m-1.5 p-1.5">
+                <a href="{{ route('dashboard') }}" class="-m-1.5 p-1.5">
                     <span class="sr-only">Creative Hub</span>
-                    <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                        alt="" class="h-8 w-auto">
+                    <img src="{{ asset('images/logo/logo.jpg') }}" alt="" class="h-8 w-auto">
                 </a>
             </div>
 
@@ -35,24 +34,56 @@
 
             <!-- Menu Links (Desktop) -->
             <div class="hidden lg:flex lg:gap-x-12">
-                <a href="{{ route('index') }}" class="text-sm/6 font-semibold text-black">Home</a>
+                <a href="{{ route('dashboard') }}" class="text-sm/6 font-semibold text-black">Beranda</a>
                 <a href="{{ route('produk') }}" class="text-sm/6 font-semibold text-black">Produk</a>
-                <a href="{{ route('blog') }}" class="text-sm/6 font-semibold text-black">Blog</a>
+                <a href="{{ route('blog') }}" class="text-sm/6 font-semibold text-black">Artikel</a>
                 <a href="{{ route('tentang-kami') }}" class="text-sm/6 font-semibold text-black">Tentang Kami</a>
+                <a href="{{ route('kolaborasi') }}" class="text-sm/6 font-semibold text-black">Kolaborasi</a>
             </div>
 
-            <!-- Auth Links (Desktop) -->
+            <!-- Auth Area (Desktop) -->
             <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-x-6">
-                <a href="{{ route('login') }}" class="text-sm/6 font-semibold text-black">Login</a>
-                <a href="{{ route('register') }}" class="text-sm/6 font-semibold text-black">Sign up</a>
+                @auth
+                    <!-- Dropdown Nama User -->
+                    <div class="relative" @click.outside="userMenu = false">
+                        <button @click="userMenu = !userMenu"
+                            class="flex items-center gap-x-1 text-sm/6 font-semibold text-black">
+                            {{ Auth::user()->name }}
+                            <svg class="h-4 w-4 transition-transform" :class="{ 'rotate-180': userMenu }" fill="none"
+                                stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                            </svg>
+                        </button>
+
+                        <div x-show="userMenu" x-transition
+                            class="absolute right-0 mt-3 w-48 rounded-md bg-white py-1 shadow-lg ring-1 ring-black/5"
+                            style="display: none;">
+                            <a href="{{ route('profile.edit') }}"
+                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                                Profile
+                            </a>
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit"
+                                    class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-50">
+                                    Log Out
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                @else
+                    <a href="{{ route('login') }}" class="text-sm/6 font-semibold text-black">Login</a>
+                    <a href="{{ route('register') }}" class="text-sm/6 font-semibold text-black">Sign up</a>
+                @endauth
             </div>
 
         </nav>
 
         <!-- Mobile Menu -->
-        <div x-show="open" class="fixed inset-0 z-50 bg-white lg:hidden">
+        <div x-show="open" class="fixed inset-0 z-50 bg-white lg:hidden" style="display: none;">
             <div class="p-6">
 
+                <!-- Header -->
                 <div class="flex justify-between items-center">
                     <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
                         class="h-8">
@@ -64,16 +95,29 @@
                     </button>
                 </div>
 
+                <!-- Links -->
                 <div class="mt-10 space-y-6">
-                    <a href="{{ route('index') }}" class="block text-xl font-semibold">Home</a>
-                    <a href="{{ route('produk') }}" class="block text-xl font-semibold">Produk</a>
-                    <a href="{{ route('blog') }}" class="block text-xl font-semibold">Blog</a>
-                    <a href="{{ route('tentang-kami') }}" class="block text-xl font-semibold">Tentang Kami</a>
+                    <a href="{{ route('dashboard') }}" class="block text-sm/6 font-semibold text-black">Home</a>
+                    <a href="{{ route('produk') }}" class="block text-sm/6 font-semibold text-black">Produk</a>
+                    <a href="{{ route('blog') }}" class="block text-sm/6 font-semibold text-black">Blog</a>
+                    <a href="{{ route('tentang-kami') }}" class="block text-sm/6 font-semibold text-black">Tentang
+                        Kami</a>
                     <hr>
-                    <a href="{{ route('login') }}" class="block text-xl font-semibold">Login</a>
-                    <a href="{{ route('register') }}" class="block text-xl font-semibold">Sign Up</a>
-                </div>
 
+                    @auth
+                        <p class="text-sm font-semibold text-gray-500">{{ Auth::user()->name }}</p>
+                        <a href="{{ route('profile.edit') }}" class="block text-xl font-semibold">Profile</a>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit" class="block text-xl font-semibold text-left w-full">
+                                Log Out
+                            </button>
+                        </form>
+                    @else
+                        <a href="{{ route('login') }}" class="block text-xl font-semibold">Login</a>
+                        <a href="{{ route('register') }}" class="block text-xl font-semibold">Sign Up</a>
+                    @endauth
+                </div>
             </div>
         </div>
     </header>

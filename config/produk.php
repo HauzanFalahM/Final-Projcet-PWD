@@ -56,12 +56,12 @@ return [
 
     [
         'id' => 5,
-        'nama' => 'Lilin Aromaterapi',
-        'gambar' => 'lilin.jpg',
-        'kategori' => 'Dekorasi',
+        'nama' => 'Cheesecuit',
+        'gambar' => 'chesscuit.jpeg',
+        'kategori' => 'Makanan',
         'harga' => 65000,
-        'deskripsi' => 'Lilin aromaterapi dengan aroma lavender.',
-        'deskripsi_lengkap' => 'Membantu menciptakan suasana rileks dan nyaman di rumah dengan aroma lavender alami.',
+        'deskripsi' => 'hidangan penutup (dessert) .',
+        'deskripsi_lengkap' => 'hidangan penutup (dessert).',
         'umkm' => 'Aroma Home',
         'alamat' => 'Malang',
         'whatsapp' => '6285512345678',
@@ -122,7 +122,7 @@ return [
     [
         'id' => 10,
         'nama' => 'Kaos Sablon Lokal',
-        'gambar' => 'kaos.jpg',
+        'gambar' => 'kaos.jpeg',
         'kategori' => 'Fashion',
         'harga' => 89000,
         'deskripsi' => 'Kaos cotton combed 30s.',

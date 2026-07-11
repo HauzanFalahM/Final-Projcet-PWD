@@ -121,7 +121,7 @@
             <!-- Button -->
             <div>
                 <button
-                    type="submit" class="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-400">Sign in</button>
+                    type="submit" class="flex w-full justify-center rounded-md bg-indigo-500 px-3 py-2 text-sm font-semibold text-white hover:bg-indigo-400">Login</button>
             </div>
         </form>
     </div>

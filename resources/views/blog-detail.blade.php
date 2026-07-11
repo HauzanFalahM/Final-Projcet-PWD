@@ -1,14 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ $blog['judul'] }} | Creative Hub</title>
+
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <title>Produk</title>
 </head>
 
-<body>
+<body class="bg-gray-100">
+
     <!-- Navbar -->
     <header class="sticky top-0 z-50 bg-white shadow-sm" x-data="{ open: false, userMenu: false }">
         <nav class="max-w-7xl mx-auto flex items-center justify-between px-8 py-5">
@@ -121,221 +123,102 @@
         </div>
     </header>
 
-    {{--
-        Data produk disiapkan di sisi Laravel (bukan langsung config('produk'))
-        supaya URL gambar & URL detail sudah jadi string utuh sebelum dikirim ke Alpine.js,
-        karena helper asset() dan route() tidak bisa dipanggil dari JavaScript.
-    --}}
-    @php
-        $produkJson = collect(config('produk'))
-            ->map(function ($p) {
-                $p['gambar_url'] = asset('images/produk/' . $p['gambar']);
-                $p['detail_url'] = route('produk.detail', $p['id']);
-                return $p;
-            })
-            ->values();
-    @endphp
+    <!-- Back Button -->
+    <div class="max-w-4xl mx-auto px-6 lg:px-8 pt-8">
+        <a href="{{ route('blog') }}"
+            class="inline-flex items-center gap-2 text-[#3B5D50] font-semibold hover:text-[#2f4d42] transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+            </svg>
+            Kembali ke Blog
+        </a>
+    </div>
 
-    <!-- Wrapper Alpine: search (di Hero) & filter (di section Produk) berbagi state yang sama -->
-    <div x-data="produkPage(@js($produkJson))">
+    <!-- Artikel -->
+    <article class="max-w-4xl mx-auto px-6 lg:px-8 py-10">
 
-        <!-- Hero -->
-        <section class="bg-white border-b">
-            <div class="max-w-7xl mx-auto px-6 lg:px-8 py-14">
-                <h1 class="mt-3 text-5xl font-bold text-gray-900">
-                    Produk UMKM
+        <div class="bg-white rounded-3xl shadow-lg overflow-hidden">
+
+            <!-- Gambar Utama -->
+            <img src="{{ asset('images/artikel/' . $blog['gambar']) }}" alt="{{ $blog['judul'] }}"
+                class="w-full h-80 object-cover">
+
+            <div class="p-8 lg:p-12">
+
+                <!-- Kategori & Tanggal -->
+                <div class="flex items-center justify-between mb-6">
+                    <span class="{{ $blog['warna'] }} text-xs font-medium px-3 py-1 rounded-full">
+                        {{ $blog['kategori'] }}
+                    </span>
+                    <span class="text-sm text-gray-400">
+                        {{ $blog['tanggal'] }}
+                    </span>
+                </div>
+
+                <!-- Judul -->
+                <h1 class="text-3xl lg:text-4xl font-bold text-gray-900 leading-tight mb-8">
+                    {{ $blog['judul'] }}
                 </h1>
 
-                <p class="mt-4 text-gray-500 max-w-2xl">
-                    Temukan berbagai produk unggulan dari pelaku UMKM Indonesia.
-                    Jelajahi berbagai kategori dan dukung produk lokal berkualitas.
-                </p>
-
-                <!-- Search -->
-                <div class="mt-8">
-                    <input type="text" x-model="search" placeholder="Cari produk..."
-                        class="w-full lg:w-96 px-5 py-4 rounded-2xl border border-gray-300 focus:ring-2 focus:ring-[#3B5D50] focus:outline-none">
+                <!-- Isi Artikel -->
+                <div class="prose prose-lg max-w-none text-gray-700 leading-relaxed space-y-5">
+                    @foreach ($blog['konten'] as $paragraf)
+                        <p>{{ $paragraf }}</p>
+                    @endforeach
                 </div>
 
+                <!-- Sumber (opsional, hanya tampil kalau diisi di config) -->
+                @if (!empty($blog['sumber_nama']))
+                    <p class="mt-10 text-sm text-gray-400 border-t pt-6">
+                        Referensi:
+                        <a href="{{ $blog['sumber_url'] }}" target="_blank" rel="noopener"
+                            class="text-[#3B5D50] hover:underline">
+                            {{ $blog['sumber_nama'] }}
+                        </a>
+                    </p>
+                @endif
+
             </div>
-        </section>
 
-        <!-- Produk -->
-        <section class="py-8">
-            <div class="max-w-7xl mx-auto px-6 lg:px-8">
+        </div>
 
-                <div class="grid grid-cols-1 lg:grid-cols-4 gap-10">
+    </article>
 
-                    <!-- Sidebar -->
-                    <aside>
+    <!-- Artikel Lainnya -->
+    <section class="max-w-4xl mx-auto px-6 lg:px-8 pb-16">
 
-                        <div class="bg-white rounded-3xl border border-gray-200 p-6 sticky top-24">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">
+            Artikel Lainnya
+        </h2>
 
-                            <div class="flex items-center justify-between mb-6">
-                                <h2 class="text-xl font-bold">
-                                    Filter Produk
-                                </h2>
+        <div class="grid sm:grid-cols-2 gap-6">
 
-                                <button type="button" @click="resetFilter()"
-                                    class="text-xs font-semibold text-[#3B5D50] hover:underline">
-                                    Reset
-                                </button>
-                            </div>
+            @foreach (collect(config('blog'))->where('id', '!=', $blog['id'])->take(2) as $item)
+                <a href="{{ route('blog.detail', $item['id']) }}"
+                    class="group bg-white rounded-2xl border border-gray-200 overflow-hidden hover:border-[#3B5D50] hover:shadow-lg transition">
 
-                            <!-- Kategori -->
-                            <div class="mb-8">
+                    <img src="{{ asset('images/artikel/' . $item['gambar']) }}" alt="{{ $item['judul'] }}"
+                        class="w-full h-40 object-cover group-hover:scale-105 transition duration-500">
 
-                                <h3 class="font-semibold mb-4">
-                                    Kategori
-                                </h3>
+                    <div class="p-5">
+                        <span class="{{ $item['warna'] }} text-xs font-medium px-3 py-1 rounded-full">
+                            {{ $item['kategori'] }}
+                        </span>
 
-                                <div class="space-y-3">
-
-                                    <label class="flex items-center gap-3 cursor-pointer">
-                                        <input type="checkbox" value="Kerajinan" x-model="kategoriTerpilih">
-                                        Kerajinan
-                                    </label>
-
-                                    <label class="flex items-center gap-3 cursor-pointer">
-                                        <input type="checkbox" value="Fashion" x-model="kategoriTerpilih">
-                                        Fashion
-                                    </label>
-
-                                    <label class="flex items-center gap-3 cursor-pointer">
-                                        <input type="checkbox" value="Makanan" x-model="kategoriTerpilih">
-                                        Makanan
-                                    </label>
-
-                                    <label class="flex items-center gap-3 cursor-pointer">
-                                        <input type="checkbox" value="Dekorasi" x-model="kategoriTerpilih">
-                                        Dekorasi
-                                    </label>
-
-                                </div>
-
-                            </div>
-
-                            <!-- Urutkan -->
-                            <div>
-
-                                <h3 class="font-semibold mb-4">
-                                    Urutkan
-                                </h3>
-
-                                <select x-model="urutkan" class="w-full border rounded-xl p-3">
-                                    <option value="terbaru">Terbaru</option>
-                                    <option value="termurah">Harga Termurah</option>
-                                    <option value="termahal">Harga Termahal</option>
-                                </select>
-
-                            </div>
-
-                        </div>
-
-                    </aside>
-
-                    <!-- Produk -->
-                    <div class="lg:col-span-3">
-
-                        <!-- Header -->
-                        <div class="flex justify-between items-center mb-8">
-
-                            <h2 class="text-2xl font-bold">
-                                Semua Produk
-                            </h2>
-
-                            <p class="text-gray-500">
-                                Menampilkan <span x-text="produkTampil.length"></span> produk
-                            </p>
-
-                        </div>
-
-                        <!-- Grid -->
-                        <div class="grid sm:grid-cols-2 xl:grid-cols-3 gap-8">
-
-                            <template x-for="produk in produkTampil" :key="produk.id">
-                                <div
-                                    class="group bg-white rounded-3xl overflow-hidden border border-gray-200 hover:border-[#3B5D50] hover:shadow-xl transition duration-300">
-
-                                    <div class="overflow-hidden">
-                                        <img :src="produk.gambar_url" :alt="produk.nama"
-                                            class="w-full h-56 object-cover group-hover:scale-105 transition duration-500">
-                                    </div>
-
-                                    <div class="p-6">
-
-                                        <span class="text-xs px-3 py-1 rounded-full"
-                                            :class="kelasKategori(produk.kategori)" x-text="produk.kategori"></span>
-
-                                        <h3 class="mt-4 text-xl font-bold text-gray-900" x-text="produk.nama"></h3>
-
-                                        <p class="mt-2 text-gray-500 text-sm leading-relaxed"
-                                            x-text="produk.deskripsi"></p>
-
-                                        <div class="mt-6 flex justify-between items-center">
-
-                                            <div>
-                                                <p class="text-gray-400 text-sm">Harga</p>
-                                                <p class="text-xl font-bold text-[#3B5D50]"
-                                                    x-text="formatRupiah(produk.harga)"></p>
-                                            </div>
-
-                                            <a :href="produk.detail_url"
-                                                class="bg-[#3B5D50] text-white px-5 py-2 rounded-xl hover:bg-[#2d4c41] transition">
-                                                Lihat Detail
-                                            </a>
-
-                                        </div>
-
-                                    </div>
-
-                                </div>
-                            </template>
-
-                        </div>
-
-                        <!-- Pesan kalau hasil pencarian/filter kosong -->
-                        <div x-show="produkTampil.length === 0" style="display: none;"
-                            class="text-center py-16 text-gray-500">
-                            Tidak ada produk yang cocok. Coba ubah kata kunci atau filter kategori.
-                        </div>
-
-                        <!-- Pagination -->
-                        <div class="mt-14 flex justify-center gap-3">
-
-                            <button class="px-4 py-2 border rounded-xl hover:bg-gray-100">
-                                ←
-                            </button>
-
-                            <button class="px-4 py-2 rounded-xl bg-[#3B5D50] text-white">
-                                1
-                            </button>
-
-                            <button class="px-4 py-2 border rounded-xl hover:bg-gray-100">
-                                2
-                            </button>
-
-                            <button class="px-4 py-2 border rounded-xl hover:bg-gray-100">
-                                3
-                            </button>
-
-                            <button class="px-4 py-2 border rounded-xl hover:bg-gray-100">
-                                →
-                            </button>
-
-                        </div>
-
+                        <h3 class="mt-3 font-bold text-gray-900 group-hover:text-[#3B5D50] transition">
+                            {{ $item['judul'] }}
+                        </h3>
                     </div>
 
-                </div>
+                </a>
+            @endforeach
 
-            </div>
-        </section>
+        </div>
 
-    </div>
-    <!-- /Wrapper Alpine -->
+    </section>
 
-    <!-- Footer -->
+        <!-- Footer -->
     <footer class="bg-[#000000] text-white">
         <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
 
@@ -447,77 +330,6 @@
         </div>
 
     </footer>
-
-    {{-- Logika Alpine.js untuk search, filter kategori, dan urutkan --}}
-    <script>
-        document.addEventListener('alpine:init', () => {
-            Alpine.data('produkPage', (produkAwal) => ({
-                // Data mentah dari server (tidak pernah diubah langsung)
-                semuaProduk: produkAwal,
-
-                // State yang diikat ke input search, checkbox, dan select
-                search: '',
-                kategoriTerpilih: [],
-                urutkan: 'terbaru',
-
-                // Getter: daftar produk yang benar-benar ditampilkan setelah
-                // difilter search + kategori, lalu diurutkan.
-                get produkTampil() {
-                    let hasil = this.semuaProduk;
-
-                    // 1. Filter berdasarkan kata kunci pencarian (nama produk)
-                    if (this.search.trim() !== '') {
-                        const kata = this.search.toLowerCase();
-                        hasil = hasil.filter(p => p.nama.toLowerCase().includes(kata));
-                    }
-
-                    // 2. Filter berdasarkan kategori yang dicentang
-                    if (this.kategoriTerpilih.length > 0) {
-                        hasil = hasil.filter(p => this.kategoriTerpilih.includes(p.kategori));
-                    }
-
-                    // 3. Urutkan sesuai pilihan dropdown
-                    hasil = [...hasil]; // salin dulu supaya tidak mengubah array asli
-                    if (this.urutkan === 'termurah') {
-                        hasil.sort((a, b) => a.harga - b.harga);
-                    } else if (this.urutkan === 'termahal') {
-                        hasil.sort((a, b) => b.harga - a.harga);
-                    }
-                    // 'terbaru' -> biarkan urutan asli dari config('produk')
-
-                    return hasil;
-                },
-
-                // Kembalikan search, filter, dan urutan ke kondisi awal
-                resetFilter() {
-                    this.search = '';
-                    this.kategoriTerpilih = [];
-                    this.urutkan = 'terbaru';
-                },
-
-                // Format angka jadi "Rp125.000"
-                formatRupiah(angka) {
-                    return 'Rp' + Number(angka).toLocaleString('id-ID');
-                },
-
-                // Kelas warna badge kategori (menggantikan ternary di Blade)
-                kelasKategori(kategori) {
-                    switch (kategori) {
-                        case 'Fashion':
-                            return 'bg-pink-100 text-pink-700';
-                        case 'Makanan':
-                            return 'bg-orange-100 text-orange-700';
-                        case 'Minuman':
-                            return 'bg-blue-100 text-blue-700';
-                        case 'Dekorasi':
-                            return 'bg-purple-100 text-purple-700';
-                        default:
-                            return 'bg-green-100 text-green-700';
-                    }
-                },
-            }));
-        });
-    </script>
 
 </body>
 
