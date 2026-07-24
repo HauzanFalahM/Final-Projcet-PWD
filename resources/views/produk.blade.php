@@ -84,7 +84,7 @@
 
                 <!-- Header -->
                 <div class="flex justify-between items-center">
-                    <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
+                    <img src="{{ asset('images/logo/logo.jpg') }}"
                         class="h-8">
                     <button @click="open = false">
                         <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -340,7 +340,7 @@
         <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
 
             <div class="mb-12">
-                <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
+                <img src="{{ asset('images/logo/logo.jpg') }}"
                     alt="Creative Hub" class="h-8 w-auto mb-5">
 
                 <p class="text-sm text-gray-400 mb-6">

@@ -85,8 +85,7 @@
 
                 <!-- Header -->
                 <div class="flex justify-between items-center">
-                    <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                        class="h-8">
+                    <img src="{{ asset('images/logo/logo.jpg') }}" class="h-8">
                     <button @click="open = false">
                         <svg class="h-8 w-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -123,17 +122,17 @@
     </header>
 
     <!-- ================= HERO ================= -->
-    <section class="relative h-[650px] overflow-hidden">
+    <section class="relative h-[320px] sm:h-[420px] md:h-[550px] lg:h-[650px] overflow-hidden">
 
         <!-- Background Image -->
         <img src="{{ asset('images/about/about-us.jpg') }}" alt="Creative Hub"
-            class="absolute inset-0 w-full h-full object-cover">
+            class="absolute inset-0 w-full h-full object-cover object-center">
 
         <!-- Bottom Wave -->
         <div class="absolute bottom-0 left-0 w-full overflow-hidden leading-none">
 
-            <svg class="relative block w-full h-20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 120"
-                preserveAspectRatio="none">
+            <svg class="relative block w-full h-12 sm:h-16 md:h-20" xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 1440 120" preserveAspectRatio="none">
 
                 <path fill="#ffffff"
                     d="M0,96L80,90.7C160,85,320,75,480,69.3C640,64,800,64,960,74.7C1120,85,1280,107,1360,117.3L1440,128L1440,160L1360,160C1280,160,1120,160,960,160C800,160,640,160,480,160C320,160,160,160,80,160L0,160Z">
@@ -525,8 +524,7 @@
         <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
 
             <div class="mb-12">
-                <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                    alt="Creative Hub" class="h-8 w-auto mb-5">
+                <img src="{{ asset('images/logo/logo.jpg') }}" alt="Creative Hub" class="h-8 w-auto mb-5">
 
                 <p class="text-sm text-gray-400 mb-6">
                     Making the world a better place through constructing elegant hierarchies.

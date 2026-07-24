@@ -10,21 +10,16 @@
 
 <body>
     <!-- Navbar (Index / Sebelum Login) -->
-    <header class="sticky top-0 z-50 bg-white shadow-sm">
-        <nav class="max-w-7xl mx-auto flex items-center justify-between px-8 py-5">
+    <header x-data="{ open: false }" class="sticky top-0 z-50 bg-white shadow-sm">
+        <nav class="max-w-7xl mx-auto flex items-center justify-between px-4 sm:px-6 lg:px-8 py-4 lg:py-5">
 
             <!-- Logo -->
-            <a href="{{ route('index') }}" class="flex items-center gap-3">
-                <!-- Logo -->
-                <div class="flex lg:flex-1">
-                    <a href="{{ route('dashboard') }}" class="-m-1.5 p-1.5">
-                        <span class="sr-only">Creative Hub</span>
-                        <img src="{{ asset('images/logo/logo.jpg') }}" alt="" class="h-8 w-auto">
-                    </a>
-                </div>
+            <a href="{{ route('index') }}" class="-m-1.5 p-1.5">
+                <span class="sr-only">Creative Hub</span>
+                <img src="{{ asset('images/logo/logo.jpg') }}" alt="Creative Hub" class="h-7 sm:h-8 w-auto">
             </a>
 
-            <!-- Auth Links -->
+            <!-- Auth Links (Desktop) -->
             <div class="hidden lg:flex lg:flex-1 lg:justify-end gap-x-6">
                 <a href="{{ route('login') }}" class="text-sm font-medium text-[#3B5D50] hover:opacity-70 transition">
                     Masuk
@@ -35,9 +30,37 @@
                 </a>
             </div>
 
+            <!-- Hamburger (Mobile) -->
+            <div class="flex lg:hidden">
+                <button @click="open = !open" class="-m-2.5 p-2.5" aria-label="Toggle menu">
+                    <!-- Icon hamburger -->
+                    <svg x-show="!open" class="h-6 w-6 text-[#3B5D50]" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                    <!-- Icon close -->
+                    <svg x-show="open" x-cloak class="h-6 w-6 text-[#3B5D50]" fill="none" stroke="currentColor"
+                        viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                </button>
+            </div>
         </nav>
-    </header>
 
+        <!-- Menu Mobile (Dropdown) -->
+        <div x-show="open" x-cloak x-transition class="lg:hidden border-t border-gray-100 bg-white">
+            <div class="px-6 py-4 flex flex-col gap-4">
+                <a href="{{ route('login') }}" class="text-sm font-medium text-[#3B5D50]" @click="open = false">
+                    Masuk
+                </a>
+                <a href="{{ route('register') }}" class="text-sm font-medium text-[#3B5D50]" @click="open = false">
+                    Daftar
+                </a>
+            </div>
+        </div>
+    </header>
     <!-- Hero Section -->
     <div class="bg-white">
         <div class="mx-auto max-w-7xl px-6 py-14 lg:px-8">
@@ -422,8 +445,7 @@
         <div class="max-w-7xl mx-auto px-6 lg:px-8 py-16">
 
             <div class="mb-12">
-                <img src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=500"
-                    alt="Creative Hub" class="h-8 w-auto mb-5">
+                <img src="{{ asset('images/logo/logo.jpg') }}" alt="Creative Hub" class="h-8 w-auto mb-5">
 
                 <p class="text-sm text-gray-400 mb-6">
                     Making the world a better place through constructing elegant hierarchies.
